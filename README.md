@@ -1,97 +1,87 @@
-# Spark Core Scala Application Template
+# ESGI - Spark Core Template (PySpark)
 
-This repository provides a template for building and deploying a Spark Core application using Scala. It is designed to help you get started with distributed data processing using Apache Spark and Scala, offering a simple yet flexible foundation for your Spark-based applications.
+Ce dépôt fournit un ensemble d'exercices et d'examens pour apprendre Apache Spark
+avec Python (PySpark). Il sert de support pédagogique au cours ESGI sur le
+traitement de données distribué.
 
-## Table of Contents
+## Table des matières
 
-- [Features](#features)
-- [Prerequisites](#prerequisites)
-- [Setup and Installation](#setup-and-installation)
-- [Running the Application](#running-the-application)
-- [Project Structure](#project-structure)
+- [Fonctionnalités](#fonctionnalités)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Exécution](#exécution)
+- [Structure du projet](#structure-du-projet)
 
-## Features
+## Fonctionnalités
 
-- **Apache Spark Core**: Uses Apache Spark Core for distributed data processing.
-- **Scala**: Written in Scala, a powerful functional and object-oriented language.
-- **Simple Example**: Includes a simple example of working with RDDs (Resilient Distributed Datasets) and DataFrames.
-- **Cluster Compatibility**: Supports easy deployment to Spark clusters.
-- **Build System**: Built using [sbt](https://www.scala-sbt.org/) for dependency management and project builds.
+- **Apache Spark Core** : traitement de données distribué avec RDD et DataFrame.
+- **PySpark** : API Python d'Apache Spark.
+- **Progression pédagogique** : 8 séances couvrant les bases jusqu'aux cas pratiques.
+- **Examen** : énoncé et correction fournis dans le dossier `exams/`.
 
-## Prerequisites
+## Prérequis
 
-To use this template, you need to have the following installed on your machine:
+À installer sur votre machine :
 
-- **Java 8 or higher**
-- **Apache Spark** (v3.x recommended)
-- **Scala** (v2.12 or higher)
-- **sbt** for Scala project builds and dependency management
+- **Python 3.8+**
+- **Java 8 ou 11** (requis pour Spark)
+- **Apache Spark 3.x** (recommandé)
+- **pip** pour installer PySpark
 
-## Setup and Installation
+## Installation
 
-### 1. Clone the Repository
-
-Clone the repository to your local machine using:
+### 1. Cloner le dépôt
 
 ```bash
 git clone https://github.com/Yidhir-sudo/esgi-spark-core-template.git
-cd spark-core-scala-template
-```
-### 2. Install Dependencies
-
-This project uses sbt for dependency management. To install all required dependencies, run:
-
-```bash
-sbt update
+cd esgi-spark-core-template
 ```
 
-### 3. Build the Project
-To build the project and package it into a JAR file, run:
+### 2. Créer un environnement virtuel (recommandé)
 
 ```bash
-sbt package
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-This will generate the JAR file in the target/scala-2.x.x directory.
-
-## Running the Application
-
-To run the application locally, you can use the following command with sbt:
+### 3. Installer PySpark
 
 ```bash
-sbt run
+pip install pyspark
 ```
 
-To submit the application to a Spark cluster, use the spark-submit command as follows:
+## Exécution
+
+Pour exécuter un .py localement :
 
 ```bash
-spark-submit --class com.example.Main --master <master-url> target/scala-2.x.x/esgi-spark-core-template-assembly-1.0.jar
+python exercices/Seance1.py
 ```
 
-Replace <master-url> with the URL of your Spark cluster (e.g., local[*] for local mode).
-
-## Project Structure
-
-Here’s an overview of the project structure:
+Pour soumettre un script à un cluster Spark :
 
 ```bash
-spark-core-scala-template/
-├── build.sbt                         # sbt build configuration file
-├── config/                           # Configuration files for the application
-│   └── application.conf              # Spark configurations
-├── src/
-│   ├── main/
-│   │    ├── ressources/              # A folder where the ressources and the configuration of the project are saved
-│   │    └── scala/
-│   │       └── com/
-│   │            └── example/
-│   │                └── main.scala   # Example Spark code
-│   └── test/
-│        ├── ressources/
-│        └── scala/
-│            └── com/
-│                └── example/
-│                    └── myTest.scala # Example of a test class
-├── target/                           # Compiled JAR files and other build artifacts
-└── README.md                         # This README file
+spark-submit --master <master-url> exercices/Seance1.py
+```
+
+Remplacez `<master-url>` par l'URL de votre cluster (par exemple `local[*]`
+pour un mode local utilisant tous les cœurs disponibles).
+
+## Structure du projet
+
+```bash
+esgi-spark-core-template/
+├── README.md                         # Ce fichier
+├── exercices/                        # Séances de TP
+│   ├── Seance1.py                    # Introduction à Spark et aux RDD
+│   ├── Seance2.py                    # Manipulation de données (RDD)
+│   ├── Seance3.py
+│   ├── Seance4.py
+│   ├── Seance5.py
+│   ├── Seance6.py
+│   ├── Seance7.py
+│   └── Seance8.py
+└── exams/                            # Examens
+    ├── Examen_PySpark_Enonce.py
+    └── Examen_PySpark_Correction.py
 ```
