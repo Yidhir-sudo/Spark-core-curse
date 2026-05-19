@@ -1,87 +1,114 @@
-# ESGI - Spark Core Template (PySpark)
+# Spark Core Curse (PySpark)
 
-Ce dépôt fournit un ensemble d'exercices et d'examens pour apprendre Apache Spark
-avec Python (PySpark). Il sert de support pédagogique au cours ESGI sur le
-traitement de données distribué.
+This repository provides a set of exercises and exams to learn Apache Spark
+with Python (PySpark). It is used as course material for ESGI classes on
+distributed data processing.
 
-## Table des matières
+## Table of Contents
 
-- [Fonctionnalités](#fonctionnalités)
-- [Prérequis](#prérequis)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Exécution](#exécution)
-- [Structure du projet](#structure-du-projet)
+- [Execution](#execution)
+- [Project Structure](#project-structure)
 
-## Fonctionnalités
+## Features
 
-- **Apache Spark Core** : traitement de données distribué avec RDD et DataFrame.
-- **PySpark** : API Python d'Apache Spark.
-- **Progression pédagogique** : 8 séances couvrant les bases jusqu'aux cas pratiques.
-- **Examen** : énoncé et correction fournis dans le dossier `exams/`.
+- **Apache Spark Core**: distributed data processing with RDD and DataFrame.
+- **PySpark**: Apache Spark Python API.
+- **Learning progression**: 8 sessions from fundamentals to practical exercises.
+- **Exam material**: exam prompt and solution are provided in the `exams_en/` folder.
 
-## Prérequis
+## Prerequisites
 
-À installer sur votre machine :
+Install the following on your machine:
 
-- **Python 3.8+**
-- **Java 8 ou 11** (requis pour Spark)
-- **Apache Spark 3.x** (recommandé)
-- **pip** pour installer PySpark
+- **Python 3.8+ (ideally 3.14.4)**
+- **Java 17** (required by Spark)
+- **Apache Spark 4.x+ (ideally 4.1.1)** (recommended)
+- **pip** to install PySpark
 
 ## Installation
 
-### 1. Cloner le dépôt
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Yidhir-sudo/esgi-spark-core-template.git
-cd esgi-spark-core-template
+git clone <repository-url>
+cd Spark-core-curse
 ```
 
-### 2. Créer un environnement virtuel (recommandé)
+### 2. Automatic installation (recommended)
+
+A script is provided to install Java, Python, Apache Spark, Scala/sbt,
+VS Code and its extensions, plus a Python virtual environment with PySpark,
+in a single command. Compatible with macOS (Homebrew) and
+Debian/Ubuntu Linux (apt).
+
+```bash
+bash setup_spark_env.sh
+```
+
+Available options:
+
+```bash
+bash setup_spark_env.sh --no-scala     # skip Scala/sbt
+bash setup_spark_env.sh --no-vscode    # skip VS Code
+bash setup_spark_env.sh --help
+```
+
+At the end, restart your terminal and activate the environment:
+
+```bash
+source .venv/bin/activate
+```
+
+### 3. Manual installation (alternative)
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-```
-
-### 3. Installer PySpark
-
-```bash
 pip install pyspark
 ```
 
-## Exécution
+## Execution
 
-Pour exécuter un .py localement :
+To run a local Python script:
 
 ```bash
-python exercices/Seance1.py
+source .venv/bin/activate
+python sessions/Session1.py
 ```
 
-Pour soumettre un script à un cluster Spark :
+If your shell does not resolve `python`, use the project interpreter directly:
 
 ```bash
-spark-submit --master <master-url> exercices/Seance1.py
+.venv/bin/python sessions/Session1.py
 ```
 
-Remplacez `<master-url>` par l'URL de votre cluster (par exemple `local[*]`
-pour un mode local utilisant tous les cœurs disponibles).
-
-## Structure du projet
+To submit a script to a Spark cluster:
 
 ```bash
-esgi-spark-core-template/
-├── README.md                         # Ce fichier
-├── exercices/                        # Séances de TP
-│   ├── Seance1.py                    # Introduction à Spark et aux RDD
-│   ├── Seance2.py                    # Manipulation de données (RDD)
-│   ├── Seance3.py
-│   ├── Seance4.py
-│   ├── Seance5.py
-│   ├── Seance6.py
-│   ├── Seance7.py
-│   └── Seance8.py
-└── exams/                            # Examens
-    ├── Examen_PySpark_Enonce.py
-    └── Examen_PySpark_Correction.py
+spark-submit --master <master-url> sessions/Session1.py
+```
+
+Replace `<master-url>` with your cluster URL (for example `local[*]`
+for local mode using all available CPU cores).
+
+## Project Structure
+
+```bash
+Spark-core-curse/
+├── README.md                         # This file
+├── sessions/                         # Practice sessions
+│   ├── Session1.py                   # Spark and RDD introduction
+│   ├── Session2.py                   # Data manipulation (RDD)
+│   ├── Session3.py                   # Advanced RDD transformations and actions
+│   ├── Session4.py                   # DataFrame basics and schema handling
+│   ├── Session5.py                   # DataFrame filtering, aggregation, and SQL
+│   ├── Session6.py                   # Joins and execution plan optimization
+│   ├── Session7.py                   # Window functions and analytical queries
+│   └── Session8.py                   # End-to-end practice and final recap
+└── exams_en/                         # Exams
+    ├── PySpark_Exam_Prompt.py
+    └── PySpark_Exam_Correction.py
 ```

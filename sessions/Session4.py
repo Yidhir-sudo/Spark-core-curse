@@ -1,13 +1,33 @@
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession, Row
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType
+from pyspark.sql.functions import col
 
 spark = SparkSession.builder \
 .appName("DataFrameCourse5") \
 .master("local[*]") \
 .getOrCreate()
 
-# Exercice 1
+# Introduction to DataFrames with PySpark
+sc = spark.sparkContext
+rdd = sc.parallelize(range(1, 21))
 
+## Convert RDD to DataFrame, perform transformations and actions
+df = rdd\
+        .map(lambda x: Row(x))\
+        .toDF(["numbers"])\
+        .withColumn("numbers", col("numbers")*col("numbers"))\
+        .filter("numbers > 10")
+
+## Show the resulting DataFrame
+df.show()
+
+## Write a DataFrame to CSV format
+df.write.csv("output/session5/csvfile.csv", header=True, mode="overwrite")
+
+## Read CSV file into DataFrame
+spark.read.csv("output/session5/csvfile.csv", header=True, inferSchema=True)
+
+# Exercise 1
 data = [
     (1, "Alice", "FR", 100),
     (2, "Bob", "FR", 200),
@@ -28,19 +48,17 @@ df = spark.createDataFrame(data, schema)
 df.printSchema()
 df.show()
 
-# Exercice 2
+# Exercise 2
 
-df2 = (
-df
-    .select("name", "amount")
-    .filter(df.amount > 100)
+df2 = df\
+    .select("name", "amount")\
+    .filter(df.amount > 100)\
     .orderBy(df.amount.desc())
-)
 
 df2.show()
 df2.explain(True)
 
-# Exercice 3
+# Exercise 3
 
 from pyspark.sql.functions import sum
 
@@ -49,14 +67,14 @@ agg_df = df.groupBy("country").agg(sum("amount").alias("total"))
 agg_df.show()
 agg_df.explain(True)
 
-# Exercice 4
+# Exercise 4
 # Compare the execution plans of the two approaches - predicate pushdown 
 df_filtered = df.filter(df.amount > 100)
 agg = df_filtered.groupBy("country").agg(sum("amount"))
 
 agg.explain(True)
 
-# Exercice 5
+# Exercise 5
 
 df.createOrReplaceTempView("transactions")
 

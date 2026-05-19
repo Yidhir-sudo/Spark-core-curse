@@ -1,6 +1,6 @@
-# Seance 1: Introduction à Spark
+# Session 1: Introduction to Spark
 
-## Installation et configuration de Spark avec Python (PySpark)
+## Installing and configuring Spark with Python (PySpark)
 from pyspark.sql import SparkSession
 spark = SparkSession.builder \
    .appName("IntroductionSpark") \
@@ -10,19 +10,19 @@ spark = SparkSession.builder \
 sc = spark.sparkContext
 print("----------------> "+sc.version)
 
-## Concepts de base de Spark: RDDs
+## Core Spark concepts: RDDs
 rdd = sc.parallelize(range(1, 11))
 print("----------> ",rdd.collect())
 print("Nombre d'éléments :", rdd.count())
 print("Somme :", rdd.reduce(lambda a, b: a + b))
 
-## Transformations et actions sur les RDDs
+## RDD transformations and actions
 rdd_carre = rdd.map(lambda x: x * x)
 rdd_pairs = rdd.filter(lambda x: x % 2 == 0)
 print("Carrés :", rdd_carre.collect())
 print("Pairs :", rdd_pairs.collect())
 
-## Exemple pratique: Word Count
+## Practical example: Word Count
 text = "Spark is fast Spark is scalable Spark is powerful"
 rdd_text = sc.parallelize(text.split(" "))
 wordcount = (
@@ -33,5 +33,5 @@ wordcount = (
 )
 print(wordcount.collect())
 
-## Arrêt propre de la session Spark
+## Graceful Spark session shutdown
 spark.stop()
