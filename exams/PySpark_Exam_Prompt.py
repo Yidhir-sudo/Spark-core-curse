@@ -21,7 +21,7 @@ from pyspark.sql.window import Window
 spark = SparkSession.builder \
     .appName("ExamenPySpark") \
     .master("local[*]") \
-    .getOrCreate(
+    .getOrCreate()
 
 sc = spark.sparkContext
 
