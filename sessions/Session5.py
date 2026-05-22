@@ -37,14 +37,14 @@ transactions_schema = StructType([
 
 transactions = spark.createDataFrame(transactions_data, transactions_schema)
 
-# Exercice 1
+# Exercise 1
 joined = transactions.join(users, on = "user_id", how = "inner")
 agg = joined.groupBy("country").agg(sum("amount").alias("total"))
 
 agg.show()
 agg.explain(True)
 
-# Exercice 2
+# Exercise 2
 joined_broadcast = transactions.join(
     broadcast(users),
     "user_id"
@@ -56,10 +56,10 @@ agg_broadcast = joined_broadcast.groupBy("country") \
 agg_broadcast.show()
 agg_broadcast.explain(True)
 
-# Exercice 3
-transactions.groupBy("user_id").count().show() # dominance du user_id == 1
+# Exercise 3
+transactions.groupBy("user_id").count().show() # user_id == 1 dominates
 
-# Exercice 4
+# Exercise 4
 transactions_repart = transactions.repartition("user_id")
 joined_repart = transactions_repart.join(users, "user_id")
 

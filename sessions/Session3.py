@@ -1,4 +1,4 @@
-# Seance 4 : Transformations et Actions sur les RDDs
+# Session 4: Transformations and actions on RDDs
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
@@ -12,7 +12,7 @@ spark = SparkSession.builder \
 sc = spark.sparkContext
 
 
-# Exemple de données
+# Example dataset
 data = [
     ("Alice", 100),
     ("Bob", 50),
@@ -22,14 +22,14 @@ data = [
 ]
 
 
-# Exercice 1
+# Exercise 1
 rdd = sc.parallelize(data)
 
 result = rdd.reduceByKey(lambda a, b: a + b)
 
 print(result.sortByKey().collect())
 
-# Exercice 2
+# Exercise 2
 grouped = rdd.groupByKey()
 sum_group = grouped.mapValues(lambda values: sum(values))
 
@@ -41,7 +41,7 @@ print(reduced.collect())
 print(sum_group.toDebugString())
 print(reduced.toDebugString())
 
-# Exercice 3
+# Exercise 3
 mapped = rdd.mapValues(lambda x: (x, 1))
 
 reduced = mapped.reduceByKey(
@@ -52,7 +52,7 @@ average = reduced.mapValues(lambda x: x[0] / x[1])
 
 print(average.collect())
 
-# Exercice 4
+# Exercise 4
 logs = [
     ("ERROR", 1),
     ("INFO", 1),

@@ -29,7 +29,7 @@ schema = StructType([
 
 df = spark.createDataFrame(data, schema)
 
-# Exercice 1
+# Exercise 1
 window_spec = Window \
     .partitionBy("country") \
     .orderBy(col("amount").desc())
@@ -42,7 +42,7 @@ df_ranked = df.withColumn(
 top_clients = df_ranked.filter(col("rn") == 1)
 top_clients.show()
 
-# Exercice 2
+# Exercise 2
 window_cum = Window \
     .partitionBy("user_id") \
     .orderBy("date") \
@@ -55,7 +55,7 @@ df_cum = df.withColumn(
 
 df_cum.show()
 
-# Exercice 3
+# Exercise 3
 df_dup = df.union(
     spark.createDataFrame(
         [(1, "FR", 999, "2025-02-01")],
@@ -74,11 +74,11 @@ df_clean = df_dup.withColumn(
 
 df_clean.show()
 
-# Exercice 4
-## 1. Filtrage
+# Exercise 4
+## 1. Filtering
 df_filtered = df.filter(col("amount") > 100)
 
-## 2. Cumul
+## 2. Cumulative sum
 window_cum = Window \
     .partitionBy("user_id") \
     .orderBy("date") \
@@ -89,7 +89,7 @@ df_enriched = df_filtered.withColumn(
     sum("amount").over(window_cum)
 )
 
-## 3. Ranking pays
+## 3. Country ranking
 window_rank = Window \
     .partitionBy("country") \
     .orderBy(col("amount").desc())
@@ -99,6 +99,6 @@ df_ranked = df_enriched.withColumn(
     row_number().over(window_rank)
 )
 
-## 4. Résultat final
+## 4. Final result
 final_df = df_ranked.filter(col("rank") == 1)
 final_df.show()
