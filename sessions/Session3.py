@@ -1,4 +1,4 @@
-# Session 4: Transformations and actions on RDDs
+# Session 3: Transformations and actions on RDDs
 
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
